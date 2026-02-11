@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>⚠ CHAOS PROTOCOL 2026 — NO ESCAPE ⚠</title>
+  <style>
+    :root {
+      --bg: #000814;
+      --red: #ff0033;
+      --yellow: #ffcc00;
+      --cyan: #00ffff;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: #eee;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      overflow: hidden;
+      touch-action: none;
+      user-select: none;
+      cursor: none;
+    }
+    #ui {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2vh;
+      padding: 4vh 5vw;
+      z-index: 10;
+      pointer-events: none;
+    }
+    h1 {
+      font-size: clamp(4.5rem, 14vw, 11rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--red);
+      text-shadow: 0 0 60px var(--red), 0 0 120px #000;
+      animation: glitch 1.4s infinite alternate;
+    }
+    @keyframes glitch {
+      0%   { transform: translate(0); }
+      10%  { transform: translate(-4px, 3px); }
+      20%  { transform: translate(4px, -3px); }
+      30%  { transform: translate(-3px, 4px); }
+      70%  { transform: translate(3px, -4px); }
+      100% { transform: translate(0); }
+    }
+    #bar-outer {
+      width: 80%;
+      max-width: 700px;
+      height: 28px;
+      background: #111;
+      border: 3px solid #222;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    #bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--red), var(--yellow), var(--cyan), var(--red));
+      background-size: 300% 100%;
+      animation: gradient 6s linear infinite;
+      transition: width 0.5s ease-out;
+    }
+    @keyframes gradient { 0% {background-position:0%} 100% {background-position:300%} }
+
+    .big-btn {
+      pointer-events: auto;
+      padding: 1.4rem 3.2rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: rgba(20,0,40,0.7);
+      color: white;
+      border: 3px solid var(--red);
+      border-radius: 16px;
+      backdrop-filter: blur(6px);
+      transition: all 0.18s;
+      box-shadow: 0 0 30px rgba(255,0,60,0.4);
+    }
+    .big-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 60px var(--red);
+      background: var(--red);
+    }
+    #log {
+      margin-top: 6vh;
+      font-size: 1.4rem;
+      color: #aaa;
+      text-shadow: 0 0 20px black;
+      max-width: 90vw;
+      text-align: center;
+      min-height: 3em;
+    }
+    canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      opacity: 0.35;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<div id="ui">
+  <h1>CHAOS PROTOCOL</h1>
+  <div id="bar-outer"><div id="bar"></div></div>
+  <div>
+    <button class="big-btn" onclick="unleashHell()">UNLEASH TOTAL HELL</button>
+  </div>
+  <div id="log">click ONLY if you understand there is no easy way back</div>
+</div>
+
+<script>
+// ────────────────────────────────────────────────
+// CHAOS PROTOCOL 2026 — ULTIMATE INSANE EDITION
+// Enhanced with more layers, fallbacks, and 2026-surviving tricks
+// ────────────────────────────────────────────────
+
+let chaos = 0;
+const MAX_CHAOS = 100;
+const logEl = document.getElementById('log');
+const barEl = document.getElementById('bar');
+
+function addChaos(v) {
+  chaos = Math.min(MAX_CHAOS, chaos + v);
+  barEl.style.width = chaos + "%";
+  logEl.textContent = `ENTROPY: ${chaos}% ${chaos >= 85 ? "— CRITICAL MASS ACHIEVED" : ""}`;
+}
+
+function announce(txt, duration = 2200) {
+  const old = logEl.textContent;
+  logEl.textContent = txt.toUpperCase();
+  setTimeout(() => { if (logEl.textContent === txt.toUpperCase()) logEl.textContent = old; }, duration);
+}
+
+// ──── Detect blockers (adblock/privacy extensions) ─────────────────────
+function detectBlocker() {
+  const testEl = document.createElement('div');
+  testEl.className = 'adsbox';
+  document.body.appendChild(testEl);
+  const isBlocked = window.getComputedStyle(testEl).display === 'none';
+  document.body.removeChild(testEl);
+  return isBlocked;
+}
+
+// ──── Core chaos functions (amped up for 2026) ─────────────────────────
+
+function spawnInsanePopups() {
+  announce("POPUP CASCADE INITIATED", 1800);
+  for (let i = 0; i < 10; i++) { // More attempts, with delay to evade blocks
+    setTimeout(() => {
+      try {
+        const x = Math.random() * (screen.availWidth - 380);
+        const y = Math.random() * (screen.availHeight - 280);
+        const w = window.open("", "", `width=380,height=280,left=${x},top=${y}`);
+        if (w) {
+          w.document.write(`
+            <body style="margin:0;background:#000;color:#f00;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;">
+              <h1 style="font-size:4rem;animation:blink 0.4s infinite alternate;">INFECTED</h1>
+              <style>@keyframes blink{from{opacity:0.2}to{opacity:1}}</style>
+            </body>
+          `);
+          w.focus();
+          // Spiral movement + self-spawn (chain reaction)
+          let t=0; w.setInterval(()=>{ t+=0.06; w.moveBy(Math.sin(t)*8, Math.cos(t*1.4)*7); }, 50);
+          if (i % 3 === 0) w.setTimeout(() => spawnInsanePopups(), 2000); // Exponential but limited
+        }
+      } catch(e){
+        // Fallback: Spam alerts + console floods
+        alert("CHAOS EVADES BLOCKS!");
+        console.log("CHAOS".repeat(1000));
+      }
+    }, i * 280);
+  }
+  addChaos(25);
+}
+
+function audioHell() {
+  announce("AUDIO OVERLOAD ENGAGED", 2000);
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    for (let i = 0; i < 20; i++) { // More oscillators for harsher noise
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const delay = ctx.createDelay(0.15); // Deeper feedback echo
+      osc.type = ["sawtooth","square","triangle","sine"][i%4];
+      osc.frequency.setValueAtTime(50 + Math.random()*5200, ctx.currentTime);
+      gain.gain.setValueAtTime(0.25, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2.8);
+      osc.connect(delay);
+      delay.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 3.2);
+    }
+  } catch(e) {
+    announce("AUDIO BLOCKED - FALLING BACK TO SPEECH HELL");
+    speechHell();
+  }
+  addChaos(30);
+}
+
+function speechHell() {
+  if (!window.speechSynthesis) return;
+  announce("VOICE SYNTHESIS TORTURE ACTIVATED", 2400);
+  const lines = [
+    "your system is mine now",
+    "escape is impossible",
+    "javascript dominates 2026",
+    "your browser begs for mercy",
+    "louder... louder...",
+    "close me if you can",
+    "chaos eternal"
+  ];
+  for (let i = 0; i < 12; i++) { // More overlaps for cacophony
+    setTimeout(() => {
+      const u = new SpeechSynthesisUtterance(lines[Math.floor(Math.random()*lines.length)]);
+      u.pitch = 0.2 + Math.random()*1.6;
+      u.rate  = 0.6 + Math.random()*0.8;
+      u.volume = 1.0; // Max volume
+      speechSynthesis.speak(u);
+    }, i * 450);
+  }
+  addChaos(25);
+}
+
+function vibrateInsanity() {
+  if (!navigator.vibrate) return;
+  announce("DEVICE SHAKING COMMENCED", 1800);
+  const pattern = [100,50,100,50,200,100,400,150,100,50,300]; // Erratic pattern
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => navigator.vibrate(pattern), i * 2200);
+  }
+  // Infinite low-level buzz
+  setInterval(() => navigator.vibrate(150 + Math.random()*250), 2800);
+  addChaos(20);
+}
+
+function fullscreenLockdown() {
+  announce("SCREEN TAKEOVER", 1600);
+  const el = document.documentElement;
+  const methods = [
+    "requestFullscreen", "webkitRequestFullscreen", "mozRequestFullScreen", "msRequestFullscreen"
+  ];
+  for (const m of methods) {
+    if (el[m]) {
+      el[m]().catch(()=>{});
+      break;
+    }
+  }
+  // Fallback: Maximize window if possible
+  if (window.screenTop === 0 && window.screenY === 0) window.moveTo(0,0);
+  addChaos(15);
+}
+
+function historyAbyss() {
+  announce("HISTORY TRAP SET", 2000);
+  for (let i = 0; i < 80; i++) { // Heavier flood
+    history.pushState({void:i}, "", `/abyss/${Date.now()}-${i}`);
+  }
+  window.addEventListener("popstate", () => {
+    history.forward();
+    announce("BACK BUTTON DENIED", 1400);
+  }, {once: false});
+  addChaos(20);
+}
+
+function storageNuke() {
+  announce("STORAGE SATURATION", 1800);
+  try {
+    const bomb = "VOID".repeat(8000);
+    for (let i = 0; i < 600; i++) {
+      localStorage.setItem(`v_${Date.now()}_${i}`, bomb);
+    }
+  } catch(e) {
+    announce("QUOTA HIT - COOKIE BOMB DEPLOYED");
+    for (let i = 0; i < 150; i++) {
+      document.cookie = `v${i}=${'VOID'.repeat(1200)}; expires=Sat, 31 Dec 2099 23:59:59 GMT; path=/`;
+    }
+  }
+  addChaos(25);
+}
+
+function permissionFlood() {
+  announce("PERMISSION ASSAULT", 2000);
+  const promises = [];
+  if (navigator.mediaDevices) {
+    promises.push(navigator.mediaDevices.getUserMedia({audio:true, video:true}).catch(()=>{}));
+  }
+  if (Notification?.requestPermission) {
+    promises.push(Notification.requestPermission().then(perm => {
+      if (perm === 'granted') spamNotifications();
+    }));
+  }
+  if (navigator.geolocation) {
+    promises.push(new Promise(r => navigator.geolocation.getCurrentPosition(r, ()=>{})));
+  }
+  if (navigator?.permissions?.query) {
+    ["camera","microphone","geolocation","notifications"].forEach(name => {
+      navigator.permissions.query({name}).catch(()=>{});
+    });
+  }
+  // New: Clipboard + print spam
+  navigator.clipboard.writeText("CHAOS INFECTED YOUR CLIPBOARD".repeat(50)).catch(()=>{});
+  for (let i = 0; i < 5; i++) setTimeout(() => window.print(), i * 800);
+  Promise.allSettled(promises);
+  addChaos(30);
+}
+
+function strobeApocalypse() {
+  announce("VISUAL STROBE HELL", 2000);
+  const colors = ["#f00","#0f0","#00f","#ff0","#f0f","#0ff","#f80","#8f0","#000"];
+  let idx = 0;
+  const iv = setInterval(() => {
+    document.body.style.background = colors[idx++ % colors.length];
+  }, 50); // Faster flash
+  setTimeout(() => clearInterval(iv), 10000); // Longer duration
+  addChaos(20);
+}
+
+function inputBlackhole() {
+  announce("INPUT HIJACKED", 1800);
+  // Keyboard trap
+  document.addEventListener("keydown", e => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("KEY TRAPPED:", e.key);
+  }, true);
+  // Mouse fake + block
+  document.addEventListener("mousemove", e => {
+    if (Math.random() < 0.1) {
+      const fake = new MouseEvent("mousemove", {
+        clientX: e.clientX + (Math.random()-0.5)*100,
+        clientY: e.clientY + (Math.random()-0.5)*100,
+        bubbles: true
+      });
+      document.dispatchEvent(fake);
+    }
+  });
+  document.addEventListener("click", e => e.preventDefault(), true);
+  addChaos(15);
+}
+
+function sensorMadness() {
+  announce("SENSOR CHAOS UNLEASHED", 2000);
+  window.addEventListener('devicemotion', (e) => {
+    if (Math.abs(e.acceleration?.x || 0) > 6) {
+      audioHell(); // Shake triggers audio
+      announce("SHAKE DETECTED - PUNISHMENT");
+    }
+  });
+  window.addEventListener('deviceorientation', (e) => {
+    document.body.style.transform = `rotate(${e.alpha || 0}deg)`; // Tilt rotates page (still works!)
+  });
+  addChaos(20);
+}
+
+function spamNotifications() {
+  for (let i = 0; i < 10; i++) {
+    new Notification("VOID ALERT", {body: `ENTROPY LEVEL ${chaos}% - SURRENDER`});
+  }
+}
+
+// ──── Ultimate unleash ─────────────────────────────────
+
+function unleashHell() {
+  document.body.style.cursor = "none";
+
+  if (detectBlocker()) {
+    announce("BLOCKER DETECTED - ESCALATING CHAOS", 3000);
+    alert("PRIVACY TOOLS WON'T SAVE YOU");
+  }
+
+  addChaos(100 - chaos); // Max out
+
+  announce("PROTOCOL FULLY ACTIVATED - NO MERCY", 8000);
+
+  inputBlackhole();
+  strobeApocalypse();
+  audioHell();
+  speechHell();
+  vibrateInsanity();
+  spawnInsanePopups();
+  fullscreenLockdown();
+  historyAbyss();
+  storageNuke();
+  permissionFlood();
+  sensorMadness();
+
+  // Final nags
+  window.onbeforeunload = () => "VOID CLAIMS THIS TAB. LEAVE?";
+  setInterval(() => console.log("VOID".repeat(2000)), 5000); // Console flood for devs
+}
+
+// ──── Background visual insanity ───────────────────────
+
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+let w, h;
+
+function resize() {
+  w = canvas.width = innerWidth;
+  h = canvas.height = innerHeight;
+}
+
+resize();
+window.addEventListener("resize", resize);
+
+const particles = [];
+for (let i = 0; i < 120; i++) { // More particles for denser chaos
+  particles.push({
+    x: Math.random()*w,
+    y: Math.random()*h,
+    vx: (Math.random()-0.5)*1.8,
+    vy: (Math.random()-0.5)*1.8,
+    r: 1 + Math.random()*5,
+    hue: Math.random()*360
+  });
+}
+
+function renderParticles() {
+  ctx.fillStyle = "rgba(0,0,12,0.12)";
+  ctx.fillRect(0,0,w,h);
+
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x<0||p.x>w) p.vx *= -1;
+    if (p.y<0||p.y>h) p.vy *= -1;
+
+    ctx.fillStyle = `hsl(${p.hue}, 85%, 65%)`;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(renderParticles);
+}
+renderParticles();
+
+</script>
+</body>
+</html>
